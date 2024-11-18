@@ -33,7 +33,7 @@ The program is implemented in GNU Prolog and consists of:
 2. Load the program:
    ```prolog
    $ gprolog
-   ?- [grandpa].
+   ?- ['grandpa.pl'].
    ```
 3. Run the main query:
    ```prolog
