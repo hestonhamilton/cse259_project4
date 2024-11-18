@@ -1,6 +1,6 @@
 # I'm My Own Grandpa - Prolog Kinship Relations
-CSE 259 - Logic in Computer Science  
-Project 4 - Fall 2024
+**CSE 259 - Logic in Computer Science**  
+**Project 4 - Fall 2024**
 
 ## Team Information
 
