@@ -1,0 +1,38 @@
+## Basic .gitignore template
+
+# Temporary files
+*.log
+*.tmp
+*.swp
+*.bak
+*.backup
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE-specific files (Optional: Uncomment based on your IDE)
+# VSCode
+.vscode/
+*.code-workspace
+
+# JetBrains IDEs (IntelliJ, PyCharm, etc.)
+.idea/
+
+# Eclipse IDE
+.project
+.classpath
+.settings/
+
+# Sublime Text
+sublime-project
+sublime-workspace
+
+# Emacs backup files
+*~
+
+# Mac specific
+._*
+
+# Windows specific
+desktop.ini
