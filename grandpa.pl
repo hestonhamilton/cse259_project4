@@ -17,8 +17,8 @@
 % - Birth of widow's daughter's son
 % =============================================================================
 % Spousal relationships
-spouse(i, widow).       % Narrator and Widow are married
-spouse(dad, redhair).   % Dad and Redhair are married
+married(i, widow).       % Narrator and Widow are married
+married(dad, redhair).   % Dad and Redhair are married
 
 % Gender information
 female(widow).
@@ -42,7 +42,8 @@ child(baby, widow).      % Baby is Widow's son
 % Basic family relationships that other rules will build upon
 
 % - Spouse relationship (symmetric)
-spouse(X, Y) :- spouse(Y, X).
+spouse(X, Y) :- married(X, Y).
+spouse(X, Y) :- married(Y, X).
 
 % - Parent relationships
 parent(X, Y) :- child(Y, X).
@@ -66,7 +67,6 @@ sister(X, Y) :- sibling(X, Y), female(X).
 % - uncle/aunt relationships
 % - in-law relationships
 % - step-relationships
-% Rule use should be maximized
 
 
 
