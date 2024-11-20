@@ -35,20 +35,28 @@ child(onrun, dad).       % Onrun is Dad's son
 child(onrun, redhair).   % Onrun is Redhair's son
 child(baby, i).          % Baby is Narrator's son
 child(baby, widow).      % Baby is Widow's son
-% =============================================================================
-
-
 
 % =============================================================================
 % BASE RELATIONSHIP RULES
 % =============================================================================
 % Basic family relationships that other rules will build upon
-% - spouse relationship (symmetric)
-% - parent/child relationships
-% - sibling relationships
-% Rule use should be maximized
 
+% - Spouse relationship (symmetric)
+spouse(X, Y) :- spouse(Y, X).
 
+% - Parent relationships
+parent(X, Y) :- child(Y, X).
+father(X, Y) :- parent(X, Y), male(X).
+mother(X, Y) :- parent(X, Y), female(X).
+
+% - Child relationships
+son(X, Y) :- child(X, Y), male(X).
+daughter(X, Y) :- child(X, Y), female(X).
+
+% - Sibling relationships
+sibling(X, Y) :- parent(P, X), parent(P, Y), X \= Y.
+brother(X, Y) :- sibling(X, Y), male(X).
+sister(X, Y) :- sibling(X, Y), female(X).
 
 % =============================================================================
 % EXTENDED FAMILY RULES
@@ -66,6 +74,20 @@ child(baby, widow).      % Baby is Widow's son
 % QUERIES
 % =============================================================================
 % Main query to verify all relationships from the song
+
+runIt :-
+    daughter(redhair,i),
+    mother(redhair,i),
+    son_in_law(dad,i),
+    brother(baby, dad),
+    uncle(baby,i),
+    brother(baby,redhair),
+    grandchild(onrun,i),
+    mother(widow,redhair),
+    grandmother(widow,i),
+    grandchild(i,widow),
+    grandfather(i,i).
+
 % Additional queries to test individual relationships?
 
 
