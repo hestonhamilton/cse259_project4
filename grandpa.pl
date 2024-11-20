@@ -63,11 +63,21 @@ sister(X, Y) :- sibling(X, Y), female(X).
 % EXTENDED FAMILY RULES
 % =============================================================================
 % Complex relationships derived from base relationships
+
 % - grandparent relationships
+grandparent(X, Y) :- parent(X, Z), parent(Z, Y).
+grandfather(X, Y) :- grandparent(X, Y), male(X).
+grandmother(X, Y) :- grandparent(X, Y), female(X).
+
+% - grandchild relationships
+grandchild(X, Y) :- grandparent(Y, X).
+
 % - uncle/aunt relationships
+uncle(X, Y) :- parent(Z, Y), sibling(X, Z), male(X).
+aunt(X, Y) :- parent(Z, Y), sibling(X, Z), female(X).
+
 % - in-law relationships
 % - step-relationships
-
 
 
 % =============================================================================
