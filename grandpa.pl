@@ -17,8 +17,8 @@
 % - Birth of widow's daughter's son
 % =============================================================================
 % Spousal relationships
-married(i, widow).       % Narrator and Widow are married
-married(dad, redhair).   % Dad and Redhair are married
+spouse(i, widow).       % Narrator and Widow are married
+spouse(dad, redhair).   % Dad and Redhair are married
 
 % Gender information
 female(widow).
@@ -41,9 +41,8 @@ child(baby, widow).      % Baby is Widow's son
 % =============================================================================
 % Basic family relationships that other rules will build upon
 
-% - Spousal relationships
-spouse(X, Y) :- married(X, Y).
-spouse(X, Y) :- married(Y, X).
+related_via_spouse(X, Y) :- spouse(X, Y).
+related_via_spouse(X, Y) :- spouse(Y, X).
 
 % - Parent relationships
 parent(X, Y) :- child(Y, X).
@@ -75,21 +74,13 @@ grandmother(X, Y) :- grandparent(X, Y), female(X).
 % - grandchild relationships
 grandchild(X, Y) :- grandparent(Y, X).
 
-% - uncle/aunt relationships
+% - uncle relationship
 uncle(X, Y) :- parent(Z, Y), sibling(X, Z), male(X).
-aunt(X, Y) :- parent(Z, Y), sibling(X, Z), female(X).
 
 % - in-law relationships
-parent_in_law(X, Y) :- spouse(X, Z), parent(Z, Y).
-child_in_law(X, Y) :- spouse(Y, Z), child(Z, X).
-child_in_law(X, Y) :- offspring(Z, Y), spouse(X, Z).
-sibling_in_law(X, Y) :- spouse(X, Z), sibling(Z, Y).
+child_in_law(X, Y) :- related_via_spouse(Y, Z), child(Z, X).
+child_in_law(X, Y) :- offspring(Z, Y), related_via_spouse(X, Z).
 son_in_law(X, Y) :- child_in_law(X, Y), male(X).
-
-% - step-relationships
-step_parent(X, Y) :- spouse(X, Z), parent(Z, Y), \+ parent(X, Y).
-step_child(X, Y) :- spouse(Y, Z), child(X, Z), \+ child(X, Y).
-step_sibling(X, Y) :- parent(Z, X), step_parent(Z, Y).
 
 % =============================================================================
 % QUERIES
