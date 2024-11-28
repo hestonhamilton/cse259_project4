@@ -17,8 +17,8 @@
 % - Birth of widow's daughter's son
 % =============================================================================
 % Spousal relationships
-spouse(i, widow).       % Narrator and Widow are married
-spouse(dad, redhair).   % Dad and Redhair are married
+married(i, widow).       % Narrator and Widow are married
+married(dad, redhair).   % Dad and Redhair are married
 
 % Gender information
 female(widow).
@@ -35,7 +35,6 @@ child(onrun, dad).       % Onrun is Dad's son
 child(onrun, redhair).   % Onrun is Redhair's son
 child(baby, i).          % Baby is Narrator's son
 child(baby, widow).      % Baby is Widow's son
-% =============================================================================
 
 % =============================================================================
 % BASE RELATIONSHIP RULES
@@ -98,37 +97,14 @@ step_sibling(X, Y) :- parent(Z, X), step_parent(Z, Y).
 % Main query to verify all relationships from the song
 
 runIt :-
-    write('Is redhair the daughter of i? '),
-    (daughter(redhair, i) -> write('true') ; write('false')), nl,
-
-    write('Is redhair the mother of i? '),
-    (mother(redhair, i) -> write('true') ; write('false')), nl,
-
-    write('Is dad the son-in-law of i? '),
-    (son_in_law(dad, i) -> write('true') ; write('false')), nl,
-
-    write('Is baby the brother of dad? '),
-    (brother(baby, dad) -> write('true') ; write('false')), nl,
-
-    write('Is baby the uncle of i? '),
-    (uncle(baby, i) -> write('true') ; write('false')), nl,
-
-    write('Is baby the brother of redhair? '),
-    (brother(baby, redhair) -> write('true') ; write('false')), nl,
-
-    write('Is onrun the grandchild of i? '),
-    (grandchild(onrun, i) -> write('true') ; write('false')), nl,
-
-    write('Is widow the mother of redhair? '),
-    (mother(widow, redhair) -> write('true') ; write('false')), nl,
-
-    write('Is widow the grandmother of i? '),
-    (grandmother(widow, i) -> write('true') ; write('false')), nl,
-
-    write('Is i the grandchild of widow? '),
-    (grandchild(i, widow) -> write('true') ; write('false')), nl,
-
-    write('Is i the grandfather of i? '),
-    (grandfather(i, i) -> write('true') ; write('false')), nl.
-
-% Additional queries to test individual relationships?
+    daughter(redhair,i),
+    mother(redhair,i),
+    son_in_law(dad,i),
+    brother(baby, dad),
+    uncle(baby,i),
+    brother(baby,redhair),
+    grandchild(onrun,i),
+    mother(widow,redhair),
+    grandmother(widow,i),
+    grandchild(i,widow),
+    grandfather(i,i).
