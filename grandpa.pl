@@ -58,7 +58,6 @@ child(X, Y) :- parent(Y, X).
 % Specific child relationships
 son(X, Y) :- child(X, Y), male(X).
 daughter(X, Y) :- child(X, Y), female(X).
-
 % Sibling relationships
 sibling(X, Y) :- parent(P, X), parent(P, Y), X \= Y.                % X and Y share at least one parent
 
@@ -96,15 +95,36 @@ son_in_law(X, Y) :-
 % Main query to verify all relationships from the song
 
 runIt :-
-    daughter(redhair, i),        % Redhair is Narrator's stepdaughter
-    mother(redhair, i),          % Narrator is Redhair's stepmother
-    son_in_law(dad, i),          % Dad is Narrator's son-in-law
-    brother(baby, dad),          % Baby is Dad's brother
-    uncle(baby, i),              % Baby is Narrator's uncle
-    brother(baby, redhair),      % Baby is Redhair's brother
-    grandchild(onrun, i),        % Onrun is Narrator's grandchild
-    mother(widow, redhair),      % Widow is Redhair's mother
-    grandmother(widow, i),       % Widow is Narrator's grandmother
-    grandchild(i, widow),        % Narrator is Widow's grandchild
-    grandfather(i, i).           % Narrator is their own grandfather
+    write('Is redhair the daughter of i? '),
+    (daughter(redhair, i) -> write('true') ; write('false')), nl,
+
+    write('Is redhair the mother of i? '),
+    (mother(redhair, i) -> write('true') ; write('false')), nl,
+
+    write('Is dad the son-in-law of i? '),
+    (son_in_law(dad, i) -> write('true') ; write('false')), nl,
+
+    write('Is baby the brother of dad? '),
+    (brother(baby, dad) -> write('true') ; write('false')), nl,
+
+    write('Is baby the uncle of i? '),
+    (uncle(baby, i) -> write('true') ; write('false')), nl,
+
+    write('Is baby the brother of redhair? '),
+    (brother(baby, redhair) -> write('true') ; write('false')), nl,
+
+    write('Is onrun the grandchild of i? '),
+    (grandchild(onrun, i) -> write('true') ; write('false')), nl,
+
+    write('Is widow the mother of redhair? '),
+    (mother(widow, redhair) -> write('true') ; write('false')), nl,
+
+    write('Is widow the grandmother of i? '),
+    (grandmother(widow, i) -> write('true') ; write('false')), nl,
+
+    write('Is i the grandchild of widow? '),
+    (grandchild(i, widow) -> write('true') ; write('false')), nl,
+
+    write('Is i the grandfather of i? '),
+    (grandfather(i, i) -> write('true') ; write('false')), nl.
 
