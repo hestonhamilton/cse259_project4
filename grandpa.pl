@@ -41,13 +41,14 @@ child(baby, widow).      % Baby is Widow's son
 % =============================================================================
 % Basic family relationships that other rules will build upon
 
+% - Spousal relationships
 spouse(X, Y) :- married(X, Y).
 spouse(X, Y) :- married(Y, X).
 
 % - Parent relationships
 parent(X, Y) :- child(Y, X).
-parent(X, Y) :- related_via_spouse(X, Z), child(Y, Z).
-parent(X, Y) :- related_via_spouse(Y, Z), child(Z, X).
+parent(X, Y) :- spouse(X, Z), child(Y, Z).
+parent(X, Y) :- spouse(Y, Z), child(Z, X).
 father(X, Y) :- parent(X, Y), male(X).
 mother(X, Y) :- parent(X, Y), female(X).
 
@@ -79,15 +80,15 @@ uncle(X, Y) :- parent(Z, Y), sibling(X, Z), male(X).
 aunt(X, Y) :- parent(Z, Y), sibling(X, Z), female(X).
 
 % - in-law relationships
-parent_in_law(X, Y) :- related_via_spouse(X, Z), parent(Z, Y).
-child_in_law(X, Y) :- related_via_spouse(Y, Z), child(Z, X).
-child_in_law(X, Y) :- offspring(Z, Y), related_via_spouse(X, Z).
-sibling_in_law(X, Y) :- related_via_spouse(X, Z), sibling(Z, Y).
+parent_in_law(X, Y) :- spouse(X, Z), parent(Z, Y).
+child_in_law(X, Y) :- spouse(Y, Z), child(Z, X).
+child_in_law(X, Y) :- offspring(Z, Y), spouse(X, Z).
+sibling_in_law(X, Y) :- spouse(X, Z), sibling(Z, Y).
 son_in_law(X, Y) :- child_in_law(X, Y), male(X).
 
 % - step-relationships
-step_parent(X, Y) :- related_via_spouse(X, Z), parent(Z, Y), \+ parent(X, Y).
-step_child(X, Y) :- related_via_spouse(Y, Z), child(X, Z), \+ child(X, Y).
+step_parent(X, Y) :- spouse(X, Z), parent(Z, Y), \+ parent(X, Y).
+step_child(X, Y) :- spouse(Y, Z), child(X, Z), \+ child(X, Y).
 step_sibling(X, Y) :- parent(Z, X), step_parent(Z, Y).
 
 % =============================================================================
