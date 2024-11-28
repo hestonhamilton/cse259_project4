@@ -58,7 +58,6 @@ child(X, Y) :- parent(Y, X).
 % Specific child relationships
 son(X, Y) :- child(X, Y), male(X).
 daughter(X, Y) :- child(X, Y), female(X).
-
 % Sibling relationships
 sibling(X, Y) :- parent(P, X), parent(P, Y), X \= Y.                % X and Y share at least one parent
 
@@ -128,3 +127,4 @@ runIt :-
 
     write('Is i the grandfather of i? '),
     (grandfather(i, i) -> write('true') ; write('false')), nl.
+
