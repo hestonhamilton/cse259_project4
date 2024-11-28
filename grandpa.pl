@@ -41,9 +41,8 @@ child(baby, widow).      % Baby is Widow's son
 % =============================================================================
 % Basic family relationships that other rules will build upon
 
-% - Symmetric spousal relationships
-related_via_spouse(X, Y) :- spouse(X, Y).
-related_via_spouse(X, Y) :- spouse(Y, X).
+spouse(X, Y) :- married(X, Y).
+spouse(X, Y) :- married(Y, X).
 
 % - Parent relationships
 parent(X, Y) :- child(Y, X).
