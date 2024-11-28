@@ -58,6 +58,7 @@ child(X, Y) :- parent(Y, X).
 % Specific child relationships
 son(X, Y) :- child(X, Y), male(X).
 daughter(X, Y) :- child(X, Y), female(X).
+
 % Sibling relationships
 sibling(X, Y) :- parent(P, X), parent(P, Y), X \= Y.                % X and Y share at least one parent
 
@@ -79,9 +80,8 @@ grandmother(X, Y) :- grandparent(X, Y), female(X).
 grandchild(X, Y) :- grandparent(Y, X).
 grandchild(X, Y) :- related_via_spouse(Y, Z), grandparent(Z, X).
 
-% Uncle/Aunt relationships
+% Uncle relationship
 uncle(X, Y) :- parent(Z, Y), sibling(X, Z), male(X).
-aunt(X, Y) :- parent(Z, Y), sibling(X, Z), female(X).
 
 % In-law relationships
 son_in_law(X, Y) :- 
